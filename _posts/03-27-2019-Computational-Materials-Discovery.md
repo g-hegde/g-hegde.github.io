@@ -1,6 +1,7 @@
-# Computational Materials Discovery - a primer
-
-
+---
+layout: post
+title: Computational Materials Discovery - a primer
+---
 
 ![Desalinating water using Graphene](https://github.com/g-hegde/g-hegde.github.io/blob/master/images/Graphene_salination.jpg)
 
