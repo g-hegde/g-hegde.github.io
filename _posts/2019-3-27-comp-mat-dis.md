@@ -3,9 +3,9 @@ layout: post
 title: Computational Materials Discovery - a primer
 ---
 
-![_config.yml]({{ site.baseurl }}/images/Graphene_salination.jpg)
+![Desalinating water using Graphene](https://github.com/g-hegde/g-hegde.github.io/blob/master/images/Graphene_salination.jpg)
 
-<center><i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i></center>
+<i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i>
 
 
 
@@ -20,7 +20,7 @@ To make my case, let's run through a typical morning routine. You wake up, you b
 I won't belabor the point further. Hopefully you've caught on to my drift by now. We take these materials and the conveniences they enable for granted. This is as it should be. We shouldn't spend each moment of our waking lives worrying about how things were made. But I think it is useful to pause and reflect upon how these materials get into objects of daily use.
 
 ![Materials Continuum](https://github.com/g-hegde/g-hegde.github.io/blob/master/images/materials_continuum.jpg)
-<i>Materials Continuum. Figure source: <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</i>
+<i>Materials Continuum. Figure source: <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</a></i>
 
 A promising material candidate is identified for an application. This step is then succeeded by several stages - development, optimization, design, certification, manufacturing and finally, deployment. The <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</a> estimates a timeframe of 10 to 20 years for the above process. Not to mention the fact that the discovery process itself is prone to trial-and-error and extremely time consuming. 
 
