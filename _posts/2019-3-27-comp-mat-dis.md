@@ -3,7 +3,7 @@ layout: post
 title: Computational Materials Discovery - a primer
 ---
 
-![Desalinating water using Graphene]({{ site.baseurl }}/images/Graphene_salination.jpg)
+![_config.yml]({{ site.baseurl }}/images/Graphene_salination.jpg)
 
 <center><i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i></center>
 
