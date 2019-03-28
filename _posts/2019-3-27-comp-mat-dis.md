@@ -31,7 +31,7 @@ To make my case, let's run through a typical morning routine. You wake up, you b
 I won't belabor the point further. Hopefully you've caught on to my drift by now. We take these materials and the conveniences they enable for granted. This is as it should be. We shouldn't spend each moment of our waking lives worrying about how things were made. But I think it is useful to pause and reflect upon how these materials get into objects of daily use.
 
 ![Materials Continuum](/images/materials_continuum.jpg)
-<i>Materials Continuum. Figure source: <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</a></i>
+<i>Figure source: <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</a></i>
 
 A promising material candidate is identified for an application. This step is then succeeded by several stages - development, optimization, design, certification, manufacturing and finally, deployment. The <a href = "https://www.mgi.gov/sites/default/files/documents/materials_genome_initiative-final.pdf">Materials Genome Initiative</a> estimates a timeframe of 10 to 20 years for the above process. Not to mention the fact that the discovery process itself is prone to trial-and-error and extremely time consuming. 
 
@@ -87,3 +87,8 @@ We have a material that we seek to replace with another cheaper, equally perform
 * Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper? Performing such an analysis could be useful for finding replacements for <a href = "https://en.wikipedia.org/wiki/Copper_interconnects"> Copper interconnects</a> in microprocessors.
 * Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Copper?  Performing such an analysis could be useful for finding suitable diffusion barrier materials for Copper interconnects.
 
+<a name="conclusions"></a>  
+## Conclusions  
+That brings us to the end of this post. The information and analysis provided above should serve as a blueprint for further investigation into similar topics. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
+
+Creating a good set of features for the problem at hand is often the most important step in such computational materials discovery. It is also an important part of a new sub-field in Computational Materials Science called Materials Informatics. The field of materials discovery using informatics is still nascent, but bound to grow rapidly and data-driven techniques make their way into every industry. There are a number of interesting and industrially relevant materials-related questions that can be answered when one has access to this kind of information. 
