@@ -160,7 +160,7 @@ The respective cluster centers and the closest unary materials to cluster center
 We can move on to questions 4 and 5 that directly attempt material discovery. Let's recap question 4 - Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper?  
 Since we have the representation of each material as a point in 3D VEC space answering this question becomes fairly simple. One merely needs to compute the distance of each point in the 3D VEC space from the point representing Copper. Doing this leads to the following table
 
-![Closest to Copper](/images/copper_closest_materials.png =400x100)  
+![Closest to Copper](/images/copper_closest_materials.png)  
 
 The first few rows involving Ag, Au are fairly intuitive. These elements fall below Copper in the same group in the periodic table. Since VEC is the same for these elements, it can be expected that materials involving combinations of these elements will be found at zero distance to Copper.  
 
