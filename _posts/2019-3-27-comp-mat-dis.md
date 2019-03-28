@@ -140,10 +140,11 @@ This provides a tentative answer to question 1 - It appears that the dataset bas
 
 We can now answer question 2 - What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers?  
 Before finding out which materials are closest to the cluster centers, we first need to decide what number of clusters to use. In answering question 1, we observed that the optimum number of clusters is somewhere between 3 and 6. Picking 4 as an optimum, we can perform clustering using the same procedure as above to obtain the following tables  
+  
 
-
+  
 | Cluster Number | Material ID |        Closest Material       | Distance to respective cluster center |
-|----------------|-------------|-------------------------------|---------------------------------------|
+|:--------------:|:-----------:|:-----------------------------:|:-------------------------------------:|
 |        1       |   mp-16960  |        AlPt<sub>2</sub>       |                  0.10                 |
 |        2       |  mp-777019  | Li<sub>8</sub>SbS<sub>6</sub> |                  0.18                 |
 |        3       |  mp-1183042 |       ZrSiRu<sub>2</sub>      |                  0.15                 |
