@@ -46,10 +46,10 @@ Electrons orbiting the nucleus do so in spatial configurations called orbitals a
 ![Periodic_Table.jpg](https://github.com/g-hegde/g-hegde.github.io/blob/master/images/Periodic_Table.jpg)  
 <i>Image from <a href = "https://opentextbc.ca/chemistry/chapter/6-4-electronic-structure-of-atoms-electron-configurations/">OpenBC Textbook</a></i>
 
-The VEC of materials is one of their most fundamental physical properties. Knowledge of the VEC of atoms in materials can help us understand and predict a wide range of their physical and chemical properties. For instance, knowledge of the VEC of Silicon *3s<sup>2</sup>3p^<sup>2</sup>* explains why it is a semiconductor. Or why Copper, Silver and Gold *ns<sup>1</sup>(n-1)d<sup>10</sup>* are metals.
+The VEC of materials is one of their most fundamental physical properties. Knowledge of the VEC of atoms in materials can help us understand and predict a wide range of their physical and chemical properties. For instance, knowledge of the VEC of Silicon *3s<sup>2</sup>3p<sup>2</sup>* explains why it is a semiconductor. Or why Copper, Silver and Gold *ns<sup>1</sup>(n-1)d<sup>10</sup>* are metals.
 
 ![Si_VEC.png](https://github.com/g-hegde/g-hegde.github.io/blob/master/images/Si_VEC.png) 
-<i><a href = "http://www.chem4kids.com/files/elements/014_shells.html">Silicon Electronic shell levels</a>. The Valence Electronic Configuration of Silicon is*3s<sup>2</sup>3p^<sup>2</sup>*. The outermost shell (3) contains a filled s orbital and two partially filled p orbitals</i>  
+<i><a href = "http://www.chem4kids.com/files/elements/014_shells.html">Silicon Electronic shell levels</a>. The Valence Electronic Configuration of Silicon is*3s<sup>2</sup>3p<sup>2</sup>*. The outermost shell (3) contains a filled s orbital and two partially filled p orbitals</i>  
 
 Developing a deep understanding of electronic configuration requires extensive knowledge of atomic physics and chemistry. This is because, at a fundamental level, the behavior of all materials is governed by the rules of <a href="https://en.wikipedia.org/wiki/Quantum_mechanics">Quantum Mechanics</a>. Needless to say, this is beyond the scope of a single blog post. It is useful instead to focus on understanding how the VEC changes from one atom/material to another.
 
