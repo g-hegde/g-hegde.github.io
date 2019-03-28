@@ -184,10 +184,30 @@ Since we have the representation of each material as a point in 3D VEC space ans
 | Cu<sub>3</sub>Pt |        0.08        |
 
 The first few rows involving Ag, Au are fairly intuitive. These elements fall below Copper in the same group in the periodic table. Since VEC is the same for these elements, it can be expected that materials involving combinations of these elements will be found at zero distance to Copper.  
-The unintuitive results are ZnPd and HgPd
+<i>A priori</i>, the unintuitive results are those of ZnPd and HgPd. Hg and Zn are to the immediate right column while Pd is to the immediate left column of Copper in the periodic table. The situation is akin to when Gallium and Arsenic metals combine to form a semiconducting <a gref="https://en.wikipedia.org/wiki/Gallium_arsenide">GaAs</a> alloy. Gallium is to the left, while Arsenic is to the right of Silicon,which is a semiconductor. While neither material is a semiconductor by itself, semiconductivity emerges from their combination. In a similar way, ZnPd and HgPd combine to have a VEC identical to Copper. In a limited sense, we have thus performed material discovery!
+
+We can answer question 5 - Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Copper? - in a similar fashion. We simply need to filter out all non-Nitride materials and then compute distances of each Nitride material from Copper. Doing this leads to the following top results. Since we know that the presence of Cu, Ag and Au will bias results to be closer to Copper, we can filter out these results as well.
+
+| Index | Material ID | nsites | Closest Nitride Material | Distance to Copper |
+|:-----:|:-----------:|:------:|:------------------------:|:------------------:|
+| 33638 |  mp-542154  |   24   |          Mo3Pd2N         |      1.546541      |
+| 33639 |  mp-570666  |   24   |          Mo3Pt2N         |      1.641813      |
+| 18945 |   mp-10373  |    5   |          Cr3PdN          |      1.740287      |
+|  7763 |  mp-1019238 |    6   |           Pd2N           |      1.852969      |
+| 18946 |   mp-10374  |    5   |          Cr3PtN          |      1.912767      |
+|  7759 |  mp-1080191 |    5   |           Pd3N2          |      1.922889      |
+|  7768 |  mp-1189239 |   16   |           Pd3N           |      1.969609      |
+| 18947 |   mp-21244  |    5   |          Cr3RhN          |      1.970176      |
+| 18943 |  mp-1194250 |   28   |          Nb3Cr3N         |      2.093752      |
+
+This  is a partial list of the top 11 Nitride materials with VEC closest to Copper not involving Cu, Ag and Au.
 
 <a name="conclusions"></a>  
 ## Conclusions  
-That brings us to the end of this post. Materials discovery is an extremely exciting process involving several engineering tradeoffs. The end The information and analysis provided above should serve as a blueprint for further investigation into similar topics. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
+That brings us to the end of this post. Computational Materials discovery is an extremely exciting process involving several engineering tradeoffs. In addition to discovering target materials having particular properties, one needs also to ensure that these materials do not have undesirable properties. To take an example from question 5 above - A nitride material found to have good interconnect diffusion barrier properties should simultaneously exhibit low resistance. If it exhibits high resistance, it can have serious consequences on interconnect performance. We therefore need to perform the discovery process optimizing several variables simultaneously.
 
-Creating a good set of features for the problem at hand is often the most important step in such computational materials discovery. It is also an important part of a new sub-field in Computational Materials Science called Materials Informatics. The field of materials discovery using informatics is still nascent, but bound to grow rapidly and data-driven techniques make their way into every industry. There are a number of interesting and industrially relevant materials-related questions that can be answered when one has access to this kind of information. 
+The end result of the materials discovery and development are extremely consequential - billions of dollars of investment in R&D, billions of chips manufactured using the new materials developed and billions of new devices like computers, phone and fitness trackers affecting billions of people over several years.
+
+While the industrial practice of materials discovery may be far more involved than the examples provided above, my hope is that the post  serves as a blueprint for further investigation for those interested. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
+
+Creating a good set of features for the problem at hand is often the most important step in such computational materials discovery. It is also an important part of a new sub-field in Computational Materials Science called Materials Informatics. The field of materials discovery using informatics is still nascent. Given the high stakes, it is bound to grow rapidly as data-driven techniques make their way into every industry. Go forth, find new materials with exciting properties!
