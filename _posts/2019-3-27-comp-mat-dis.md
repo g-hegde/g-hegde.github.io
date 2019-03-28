@@ -128,7 +128,7 @@ To overcome this, a procedure known as scaling is applied to the dataset. In ess
 ## Step 4. Data analysis, modeling and visualization
 
 We are now in a position to perform clustering on the dataset to find the natural grouping of materials in the dataset.
-As a recap - here is question 1 - When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into? To do this, we perform clustering on the dataset using the KMeans algorithm implemented in scikit-learn. The figure below was generated from a standard KMeans clustering analysis of the dataset for arange of cluster configurations.  
+As a recap - here is question 1 - When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into? To do this, we perform clustering on the dataset using the KMeans algorithm implemented in the machine learning package <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">scikit-learn</a>. The figure below was generated from a standard KMeans clustering analysis of the dataset for arange of cluster configurations.  
 
 ![Elbow Plot](/images/Clustering_question1.png)  
 
@@ -138,8 +138,56 @@ It is difficult to visually determine if a distinct elbow exists in the inertia 
 
 This provides a tentative answer to question 1 - It appears that the dataset based on average electronic structure can be partitioned into 3-6 distinct clusters.  
 
+We can now answer question 2 - What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers?  
+Before finding out which materials are closest to the cluster centers, we first need to decide what number of clusters to use. In answering question 1, we observed that the optimum number of clusters is somewhere between 3 and 6. Picking 4 as an optimum, we can perform clustering using the same procedure as above to obtain the following tables
+
+| Cluster Number | Material ID |        Closest Material       | Distance to respective cluster center |
+|:--------------:|:-----------:|:-----------------------------:|:-------------------------------------:|
+|        1       |   mp-16960  |        AlPt<sub>2</sub>       |                  0.10                 |
+|        2       |  mp-777019  | Li<sub>8</sub>SbS<sub>6</sub> |                  0.18                 |
+|        3       |  mp-1183042 |       ZrSiRu<sub>2</sub>      |                  0.15                 |
+|        4       |  mp-1074458 |  Mg<sub>4</sub>Si<sub>3</sub> |                  0.10                 |
+
+To aid intuition, we can inspect which elemental materials are closest to cluster centers. This is shown in the following table  
+
+| Cluster Number | Material ID | Closest Unary Material | Distance to respective cluster center |
+|:--------------:|:-----------:|:----------------------:|:-------------------------------------:|
+|        1       |    mp-109   |           Si           |                  0.61                 |
+|        2       |  mp-199937  |            K           |                  0.78                 |
+|        3       |   mp-10869  |            S           |                  0.10                 |
+|        4       |    mp-89    |           Cr           |                  1.11                 |
+
+Obtaining this information enables an answer to question 3 - Does the grouping make intuitive sense - i.e. are the cluster centers sufficiently far away from each other on the basis of chemical intuition?  
+<a href = "https://www.materialsproject.org/materials/mp-16960/">AlPt<sub>2</sub></a> is a stable nonmagnetic metal, <a href = "https://www.materialsproject.org/materials/mp-777019/">Li<sub>8</sub>SbS<sub>6</sub></a> is a stable ferromagnetic semiconductor, <a href = "https://www.materialsproject.org/materials/mp-1183042/">ZrSiRu<sub>2</sub></a> is a stable nonmagnetic semiconductor and  <a href="https://www.materialsproject.org/materials/mp-1074458/">Mg<sub>4</sub>Si<sub>3</sub></a> is an unstable metal.  
+In case of elemental materials, Si is a semiconductor with 3 unfilled p-orbitals, K is an alkali metal with an unfilled s orbital, S is a non-metallic reactive solid with 2 unfilled p orbitals, while Cr is a transition metal with unfilled d orbitals. In terms of salient material properties, the clustering process seems to have done a reasonable job  - no material has any obvious chemical overlap.  
+
+To aid intuition, it is useful to plot this information using a scatter plot. Since we have 3 dimensions in our dataset - s, p and d - and we wish to plot a 2D plot we can first project this data on to two dimensions using a technique called Principle Components Analysis (PCA). PCA is a technique that enables compression of information with minimum loss of information. Using PCA and plotting out data points, we see the following.  
+
+![Cluster Plot](/images/Clustering_question3.png)
+
+The respective cluster centers and the closest unary materials to cluster centers are also indicated in this plot. While interpreting this plot in terms of distances, it is useful to keep in mind that this is a projection of 3 dimensional data on to two dimensions and that can make some distances appear smaller or larger than they actually are.
+
+We can move on to questions 4 and 5 that directly attempt material discovery. Let's recap question 4 - Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper?  
+Since we have the representation of each material as a point in 3D VEC space answering this question becomes fairly simple. One merely needs to compute the distance of each point in the 3D VEC space from the point representing Copper. Doing this leads to the following table
+
+| Closest Material | Distance to Copper |
+|:----------------:|:------------------:|
+|        Ag        |         0.0        |
+|        Au        |         0.0        |
+|       AgAu       |         0.0        |
+| Ag<sub>3</sub>Au |         0.0        |
+| AgAu<sub>3</sub> |         0.0        |
+|       CuAu       |         0.0        |
+| CuAu<sub>3</sub> |         0.0        |
+|       ZnPd       |         0.0        |
+|       HgPd       |         0.0        |
+| Cu<sub>3</sub>Pt |        0.08        |
+
+The first few rows involving Ag, Au are fairly intuitive. These elements fall below Copper in the same group in the periodic table. Since VEC is the same for these elements, it can be expected that materials involving combinations of these elements will be found at zero distance to Copper.  
+The unintuitive results are ZnPd and HgPd
+
 <a name="conclusions"></a>  
 ## Conclusions  
-That brings us to the end of this post. The information and analysis provided above should serve as a blueprint for further investigation into similar topics. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
+That brings us to the end of this post. Materials discovery is an extremely exciting process involving several engineering tradeoffs. The end The information and analysis provided above should serve as a blueprint for further investigation into similar topics. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
 
 Creating a good set of features for the problem at hand is often the most important step in such computational materials discovery. It is also an important part of a new sub-field in Computational Materials Science called Materials Informatics. The field of materials discovery using informatics is still nascent, but bound to grow rapidly and data-driven techniques make their way into every industry. There are a number of interesting and industrially relevant materials-related questions that can be answered when one has access to this kind of information. 
