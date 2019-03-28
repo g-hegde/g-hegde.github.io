@@ -8,16 +8,22 @@ title: Computational Materials Discovery - a primer
 <i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i>
 
 # Table of Contents  
-[Introduction](#intro)  
-[Electronic Configuration - an intuitive explanation](#elec-config)  
-[Average Electronic Configuration](#av-config)  
-[Materials Discovery - a case study](#case-study)   
-[Relevant questions to investigate](#questions)  
+1. [Introduction](#intro)  
+2. [Electronic Configuration - an intuitive explanation](#elec-config)  
+3. [Average Electronic Configuration](#av-config)  
+4. [Materials Discovery - a case study](#case-study)  
+        [Relevant questions to investigate](#questions)  
+        [Step 1. Gather Data](#gather)  
+        [Step 2. Assess Data](#assess)  
+        [Step 3. Clean and prepare data for analysis](#clean)  
+        [Step 4. Data analysis, modeling and visualization](#analysis)  
+5. [Conclusions](#conclusions)  
 
 <a name="intro"></a>  
 ## Introduction  
 
 <i>Materials make the world</i>  
+  
 Does this statement seem corny and hyperbolic at first sight? I'd have to agree. While that may be true, I also hold that the statement is a self-evident truth. Still skeptical? Good. You have reasons to read on.
 
 To make my case, let's run through a typical morning routine. You wake up, you brush your teeth using a plastic tootbrush with nylon bristles. You use a ceramic toilet. The stainless steel showerhead pours cleansing water on you. You eat breakfast while checking your phone made of a metallic alloy and coated with unbreakable Glass. Oh, and that phone contains a microprocessor chip that houses within it materials comprised of greater than 30 elements in the periodic table. You then leave for work in a car that likely has a frame strengthened with composites. You spend your day staring at an LCD/LED screen that receives display instructions from a slightly larger microprocessor chip that...is also made of materials that run the gamut of elements in the periodic table.
