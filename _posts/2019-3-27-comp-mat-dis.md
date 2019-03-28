@@ -140,19 +140,19 @@ This provides a tentative answer to question 1 - It appears that the dataset bas
 
 We can now answer question 2 - What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers?  
 Before finding out which materials are closest to the cluster centers, we first need to decide what number of clusters to use. In answering question 1, we observed that the optimum number of clusters is somewhere between 3 and 6. Picking 4 as an optimum, we can perform clustering using the same procedure as above to obtain the following tables  
-  
 
-  
-| Cluster Number | Material ID |        Closest Material       | Distance to respective cluster center |
-|:--------------:|:-----------:|:-----------------------------:|:-------------------------------------:|
-|        1       |   mp-16960  |        AlPt<sub>2</sub>       |                  0.10                 |
-|        2       |  mp-777019  | Li<sub>8</sub>SbS<sub>6</sub> |                  0.18                 |
-|        3       |  mp-1183042 |       ZrSiRu<sub>2</sub>      |                  0.15                 |
+
+
+| Cluster Number | Material ID |        Closest Material       | Distance to respective cluster center |  
+|:--------------:|:-----------:|:-----------------------------:|:-------------------------------------:|  
+|        1       |   mp-16960  |        AlPt<sub>2</sub>       |                  0.10                 |  
+|        2       |  mp-777019  | Li<sub>8</sub>SbS<sub>6</sub> |                  0.18                 |  
+|        3       |  mp-1183042 |       ZrSiRu<sub>2</sub>      |                  0.15                 |  
 |        4       |  mp-1074458 |  Mg<sub>4</sub>Si<sub>3</sub> |                  0.10                 |  
 
 
-
 To aid intuition, we can inspect which elemental materials are closest to cluster centers. This is shown in the following table  
+
 
 | Cluster Number | Material ID | Closest Unary Material | Distance to respective cluster center |
 |:--------------:|:-----------:|:----------------------:|:-------------------------------------:|
@@ -194,15 +194,15 @@ We can answer question 5 - Given a target material, say Copper, what is the (bin
 
 | Index | Material ID | nsites | Closest Nitride Material | Distance to Copper |
 |:-----:|:-----------:|:------:|:------------------------:|:------------------:|
-| 33638 |  mp-542154  |   24   |          Mo3Pd2N         |      1.546541      |
-| 33639 |  mp-570666  |   24   |          Mo3Pt2N         |      1.641813      |
-| 18945 |   mp-10373  |    5   |          Cr3PdN          |      1.740287      |
-|  7763 |  mp-1019238 |    6   |           Pd2N           |      1.852969      |
-| 18946 |   mp-10374  |    5   |          Cr3PtN          |      1.912767      |
-|  7759 |  mp-1080191 |    5   |           Pd3N2          |      1.922889      |
-|  7768 |  mp-1189239 |   16   |           Pd3N           |      1.969609      |
-| 18947 |   mp-21244  |    5   |          Cr3RhN          |      1.970176      |
-| 18943 |  mp-1194250 |   28   |          Nb3Cr3N         |      2.093752      |
+| 33638 |  mp-542154  |   24   |          Mo<sub>3</sub>Pd<sub>2</sub>N         |      1.546541      |
+| 33639 |  mp-570666  |   24   |          Mo<sub>3</sub>Pt<sub>2</sub>N         |      1.641813      |
+| 18945 |   mp-10373  |    5   |          Cr<sub>3</sub>PdN          |      1.740287      |
+|  7763 |  mp-1019238 |    6   |           Pd<sub>2</sub>N           |      1.852969      |
+| 18946 |   mp-10374  |    5   |          Cr<sub>3</sub>PtN          |      1.912767      |
+|  7759 |  mp-1080191 |    5   |           Pd<sub>3</sub>N<sub>2</sub>          |      1.922889      |
+|  7768 |  mp-1189239 |   16   |           Pd<sub>3</sub>N           |      1.969609      |
+| 18947 |   mp-21244  |    5   |          Cr<sub>3</sub>RhN          |      1.970176      |
+| 18943 |  mp-1194250 |   28   |          Nb<sub>3</sub>Cr<sub>3</sub>N         |      2.093752      |
 
 This  is a partial list of the top 11 Nitride materials with VEC closest to Copper not involving Cu, Ag and Au.
 
