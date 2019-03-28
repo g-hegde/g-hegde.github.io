@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Computational Materials scientist, Machine Learning practitioner
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
-
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+Google Scholar Profile: https://scholar.google.com/citations?user=q1vLHv0AAAAJ&hl=en
