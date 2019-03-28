@@ -71,5 +71,5 @@ We have a material that we seek to replace with another cheaper, equally perform
 * What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers? 
 * Does the grouping make intuitive sense - i.e. are the cluster centers sufficiently far away from each other on the basis of chemical intuition?  
 * Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper? Performing such an analysis could be useful for finding replacements for <a href = "https://en.wikipedia.org/wiki/Copper_interconnects"> Copper interconnects</a> in microprocessors.
-* Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Cobalt?  Performing such an analysis could be useful for finding suitable diffusion barrier materials for Copper interconnects.
+* Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Copper?  Performing such an analysis could be useful for finding suitable diffusion barrier materials for Copper interconnects.
 
