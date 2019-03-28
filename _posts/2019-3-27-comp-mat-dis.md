@@ -3,7 +3,7 @@ layout: post
 title: Computational Materials Discovery - a primer
 ---
 
-![]({{"/images/Graphene_salination.jpg"|absolute_url}})
+![Graphene Salination](/images/Graphene_salination.jpg)
 
 <i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i>
 
