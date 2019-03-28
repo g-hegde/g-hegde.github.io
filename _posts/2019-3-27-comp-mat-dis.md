@@ -101,9 +101,42 @@ I used the <a href = "https://hackingmaterials.github.io/matminer/matminer.featu
 <a name="assess"></a>
 ## Step 2. Assess data
 
-Having created a dataset for analysis, one can go about analyzing the data to get an intuitive feel for the dataset. This includes knowing the range of each variable in the dataset, the distribution of values and outliers if any. The figure below shows a distribution of s, p and d electrons for the data set.
+Having created a dataset for analysis, one can go about analyzing the data to get an intuitive feel for the dataset. This includes knowing the range of each variable in the dataset, the distribution of values and outliers if any. The figure below shows a distribution of s, p and d electrons for the data set.  
 
+![VEC Distribution](/images/spd_dist.png)  
 
+The distribution of s-electrons and p-electrons are almost diametrically opposite - The s distribution is heavily left-skewed, while the p-distribution is heavily right-skewed. d-electrons have a comparatively more even distribution with a few spikes.  
+
+What are the insights that we get from this assessment? First, left-skewed s data indicates that materials with unoccupied s-orbitals are far and few in the dataset. This is potentially disadvantageous if we are looking for exact replacements to materials that have unoccupied s orbitals - e.g. some materials from Group 1 and periods 4,5, and 6 in the periodic table and their combinations.  
+
+The exact opposite is true of p orbitals - the number of materials with unoccupied p orbitals is large, while the number of materials with occupied p-orbitals is small. Inspecting the Periodic table above, the reason for this imbalance becomes clear - we excluded inert gases (which are pretty useless for our case study) and the highly reactive Fluorine-group elements. It also means that the dataset is skewed towards more metallic elements (and their compounds) on the left-side of the periodic table. This assessment is also supported by the wide distribution of d electrons. The broad swathe of elements in the center of periodic table are largely d-type metals with a large degree of variation in d-electron occupancy.  
+
+What this means is that if we're looking for metals to replace, we're likely in luck because we have a large number of potential candidates to search from. If we're looking to replace semiconductors and insulators (with fully occupied s orbitals and unoccupied or partially occupied p orbitals), we have fewer choices as compared to metals.  
+
+Since the questions framed above are targeted towards metals, we should have a fair number of candidate metals to look for in our analysis.
+
+<a name="clean"></a>  
+## Step 3. Clean and prepare data for analysis  
+
+The VEC dataset is numerical. No non-numeric values and null values were found in the dataset. The likely reason for this is that each material in the dataset has a corresponding Composition object that can be obtained from the Materials Project API. Once one has a valid Composition object, the VEC is always likely to be returned as a numeric quantity without errors from the corresponding matminer featurizer.  
+
+Since the first goal of this exercise is to perform a clustering analysis, we need to ensure that the variables representing s, p and d electrons are on the same scale. This is because clustering is typically (but not always) done on the basis of distance/similarity. The usual way to compute distance between two distinct datapoints is to compute their <a href = "https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean Distance</a>. The side effect of this is that variables that have a larger range or smaller range than others can have an outsized influence on the clustering by making distance seem disproportionately large or small.
+
+To overcome this, a procedure known as scaling is applied to the dataset. In essence, this procedure modifes each variable so that every variable has the same mean and standard deviation so that no variable dominates the distance computation.  
+
+<a name="analysis"></a>
+## Step 4. Data analysis, modeling and visualization
+
+We are now in a position to perform clustering on the dataset to find the natural grouping of materials in the dataset.
+As a recap - here is question 1 - When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into? To do this, we perform clustering on the dataset using the KMeans algorithm implemented in scikit-learn. The figure below was generated from a standard KMeans clustering analysis of the dataset for arange of cluster configurations.  
+
+![Elbow Plot](/images/Clustering_question1.png)  
+
+To determine the optimum number of clusters, we can use the <a href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set#The_elbow_method">Elbow Method</a>. In scikit-learn we can plot the inertia of the clustering operation (The sum of the squared distance of each point from the closest cluster) versus the number of clusters and see if an elbow exists. If it does, we can use the elbow point to determine the optimum number of clusters. If it does not we may need more anaysis.  
+
+It is difficult to visually determine if a distinct elbow exists in the inertia plot on the left above. It is therefore useful to plot the rate of change of inertia when the number of clusters is increased. This plot on the right above shows a distinct 'knee' (continuing with anatomical metaphors) between n=3 and n=6.  
+
+This provides a tentative answer to question 1 - It appears that the dataset based on average electronic structure can be partitioned into 3-6 distinct clusters.  
 
 <a name="conclusions"></a>  
 ## Conclusions  
