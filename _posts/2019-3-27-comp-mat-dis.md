@@ -141,25 +141,11 @@ This provides a tentative answer to question 1 - It appears that the dataset bas
 We can now answer question 2 - What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers?  
 Before finding out which materials are closest to the cluster centers, we first need to decide what number of clusters to use. In answering question 1, we observed that the optimum number of clusters is somewhere between 3 and 6. Picking 4 as an optimum, we can perform clustering using the same procedure as above to obtain the following tables  
 
-
-
-| Cluster Number | Material ID |        Closest Material       | Distance to respective cluster center |  
-|:--------------:|:-----------:|:-----------------------------:|:-------------------------------------:|  
-|        1       |   mp-16960  |        AlPt<sub>2</sub>       |                  0.10                 |  
-|        2       |  mp-777019  | Li<sub>8</sub>SbS<sub>6</sub> |                  0.18                 |  
-|        3       |  mp-1183042 |       ZrSiRu<sub>2</sub>      |                  0.15                 |  
-|        4       |  mp-1074458 |  Mg<sub>4</sub>Si<sub>3</sub> |                  0.10                 |  
-
+![Cluster Centers](/images/cluster_center_main.png)  
 
 To aid intuition, we can inspect which elemental materials are closest to cluster centers. This is shown in the following table  
 
-
-| Cluster Number | Material ID | Closest Unary Material | Distance to respective cluster center |
-|:--------------:|:-----------:|:----------------------:|:-------------------------------------:|
-|        1       |    mp-109   |           Si           |                  0.61                 |
-|        2       |  mp-199937  |            K           |                  0.78                 |
-|        3       |   mp-10869  |            S           |                  0.10                 |
-|        4       |    mp-89    |           Cr           |                  1.11                 |
+![Cluster Closest Elemtary](/images/cluster_center_unary.png)  
 
 Obtaining this information enables an answer to question 3 - Does the grouping make intuitive sense - i.e. are the cluster centers sufficiently far away from each other on the basis of chemical intuition?  
 <a href = "https://www.materialsproject.org/materials/mp-16960/">AlPt<sub>2</sub></a> is a stable nonmagnetic metal, <a href = "https://www.materialsproject.org/materials/mp-777019/">Li<sub>8</sub>SbS<sub>6</sub></a> is a stable ferromagnetic semiconductor, <a href = "https://www.materialsproject.org/materials/mp-1183042/">ZrSiRu<sub>2</sub></a> is a stable nonmagnetic semiconductor and  <a href="https://www.materialsproject.org/materials/mp-1074458/">Mg<sub>4</sub>Si<sub>3</sub></a> is an unstable metal.  
@@ -174,35 +160,15 @@ The respective cluster centers and the closest unary materials to cluster center
 We can move on to questions 4 and 5 that directly attempt material discovery. Let's recap question 4 - Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper?  
 Since we have the representation of each material as a point in 3D VEC space answering this question becomes fairly simple. One merely needs to compute the distance of each point in the 3D VEC space from the point representing Copper. Doing this leads to the following table
 
-| Closest Material | Distance to Copper |
-|:----------------:|:------------------:|
-|        Ag        |         0.0        |
-|        Au        |         0.0        |
-|       AgAu       |         0.0        |
-| Ag<sub>3</sub>Au |         0.0        |
-| AgAu<sub>3</sub> |         0.0        |
-|       CuAu       |         0.0        |
-| CuAu<sub>3</sub> |         0.0        |
-|       ZnPd       |         0.0        |
-|       HgPd       |         0.0        |
-| Cu<sub>3</sub>Pt |        0.08        |
+![Closest to Copper](/images/copper_closest_materials.png)  
 
 The first few rows involving Ag, Au are fairly intuitive. These elements fall below Copper in the same group in the periodic table. Since VEC is the same for these elements, it can be expected that materials involving combinations of these elements will be found at zero distance to Copper.  
+
 <i>A priori</i>, the unintuitive results are those of ZnPd and HgPd. Hg and Zn are to the immediate right column while Pd is to the immediate left column of Copper in the periodic table. The situation is akin to when Gallium and Arsenic metals combine to form a semiconducting <a gref="https://en.wikipedia.org/wiki/Gallium_arsenide">GaAs</a> alloy. Gallium is to the left, while Arsenic is to the right of Silicon,which is a semiconductor. While neither material is a semiconductor by itself, semiconductivity emerges from their combination. In a similar way, ZnPd and HgPd combine to have a VEC identical to Copper. In a limited sense, we have thus performed material discovery!
 
 We can answer question 5 - Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Copper? - in a similar fashion. We simply need to filter out all non-Nitride materials and then compute distances of each Nitride material from Copper. Doing this leads to the following top results. Since we know that the presence of Cu, Ag and Au will bias results to be closer to Copper, we can filter out these results as well.
 
-| Index | Material ID | nsites | Closest Nitride Material | Distance to Copper |
-|:-----:|:-----------:|:------:|:------------------------:|:------------------:|
-| 33638 |  mp-542154  |   24   |          Mo<sub>3</sub>Pd<sub>2</sub>N         |      1.546541      |
-| 33639 |  mp-570666  |   24   |          Mo<sub>3</sub>Pt<sub>2</sub>N         |      1.641813      |
-| 18945 |   mp-10373  |    5   |          Cr<sub>3</sub>PdN          |      1.740287      |
-|  7763 |  mp-1019238 |    6   |           Pd<sub>2</sub>N           |      1.852969      |
-| 18946 |   mp-10374  |    5   |          Cr<sub>3</sub>PtN          |      1.912767      |
-|  7759 |  mp-1080191 |    5   |           Pd<sub>3</sub>N<sub>2</sub>          |      1.922889      |
-|  7768 |  mp-1189239 |   16   |           Pd<sub>3</sub>N           |      1.969609      |
-| 18947 |   mp-21244  |    5   |          Cr<sub>3</sub>RhN          |      1.970176      |
-| 18943 |  mp-1194250 |   28   |          Nb<sub>3</sub>Cr<sub>3</sub>N         |      2.093752      |
+![Copper Closest Nitrides](/images/copper_closest_nitrides.png)  
 
 This  is a partial list of the top 11 Nitride materials with VEC closest to Copper not involving Cu, Ag and Au.
 
