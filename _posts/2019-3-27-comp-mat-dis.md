@@ -7,12 +7,17 @@ title: Computational Materials Discovery - a primer
 
 <i>Desalinating water using Graphene. Image from article in <a href = "https://www.economist.com/babbage/2013/04/04/allo-allo">the Economist</a></i>
 
+# Table of Contents  
+[Introduction](#intro)  
+[Electronic Configuration - an intuitive explanation](#elec-config)  
+[Average Electronic Configuration](#av-config)  
+[Materials Discovery - a case study](#case-study)   
+[Relevant questions to investigate](#questions)  
 
+<a name="intro"></a>  
+## Introduction  
 
-### <i>Materials make our world</i>.  
-
-
-
+<i>Materials make the world</i>  
 Does this statement seem corny and hyperbolic at first sight? I'd have to agree. While that may be true, I also hold that the statement is a self-evident truth. Still skeptical? Good. You have reasons to read on.
 
 To make my case, let's run through a typical morning routine. You wake up, you brush your teeth using a plastic tootbrush with nylon bristles. You use a ceramic toilet. The stainless steel showerhead pours cleansing water on you. You eat breakfast while checking your phone made of a metallic alloy and coated with unbreakable Glass. Oh, and that phone contains a microprocessor chip that houses within it materials comprised of greater than 30 elements in the periodic table. You then leave for work in a car that likely has a frame strengthened with composites. You spend your day staring at an LCD/LED screen that receives display instructions from a slightly larger microprocessor chip that...is also made of materials that run the gamut of elements in the periodic table.
@@ -34,7 +39,8 @@ At the outset, I caution that the post is not intended to be exhaustive conceptu
 
 The rest of this post is organized as follows. First, I attempt to provide an intuitive explanation of the concept of average electronic configuration of materials. I then describe the use of two Python software packages - <a href = "http://http://pymatgen.org/">pymatgen</a> and <a href = "https://hackingmaterials.github.io/matminer/">matminer</a> - in creating a database of the valence electron configuration of a large number of inorganic materials. I then outline specific questions in the context of materials similarity and discovery that can be answered by performing a detailed analysis of database. Each subsequent section provides answers to these questions in the form of visualizations and tables. The last section provides key take-home messages from the analysis and some suggestions for expanding and improving upon the analysis in this post. Accompanying code for this post can be found at my repository on <a href = "https://github.com/g-hegde/material-similarity">GitHub</a>. 
 
-### Electronic configuration
+<a name="elec-config"></a>
+## Electronic configuration - an intuitive explanation  
 
 The <a href='https://en.wikipedia.org/wiki/Electron_configuration'>Electronic Configuration</a> of atoms describes how electrons are distributed in an atom. In a broad sense, atoms are comprised of
 
@@ -55,18 +61,20 @@ Developing a deep understanding of electronic configuration requires extensive k
 
 The periodic table above shows the VEC of all elemental materials (The terms elemental/unary/mono-atomic will be used interchangeably here). For compound materials such as binary materials (materials comprised of two elements) and ternary materials (three elements), such a straightforward comparison is not possible.
 
-
-### Average electronic configuration
+<a name="av-config"></a>  
+## Average electronic configuration  
 
 For materials containing multiple elements, a simple tweak to valence electronic structure is obtained as follows. An <a href = "http://chemed.chem.purdue.edu/genchem/topicreview/bp/ch13/unitcell.php">Unit Cell</a> of a material is a repeatable unit of atoms of a material. When this unit is repeated uniformly in all spatial dimensions, we obtain a crystal of the material. By summing the VEC of each atom in the Unit Cell and dividing through by the number of atoms in the unit cell we obtain the average VEC.
 
 Having seen what the average VEC is, we can put this knowledge to use in a simple materials discovery case study.
 
-### Materials-Discovery case-study  
+<a name="case-study"></a>  
+## Materials Discovery - case study   
 
 We have a material that we seek to replace with another cheaper, equally performing alternative. As a Computational Materials Discovery scientist, it is your responsibility to create a database with relevant VEC information for all possible elements and compounds that may be suitable replacements for this material. You are then required to clean this database to ensure the fidelity of all the data in the database. After this, you are required to perform unsupervised machine learning to see which materials group together. The set of materials closest to the target material can then be pushed up the chain for further consideration as replacement candidates.
 
-### Relevant questions  
+<a name="questions"></a>  
+## Relevant questions to investigate    
 * When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into?  
 * What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers? 
 * Does the grouping make intuitive sense - i.e. are the cluster centers sufficiently far away from each other on the basis of chemical intuition?  
