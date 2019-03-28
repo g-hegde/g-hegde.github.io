@@ -88,6 +88,23 @@ We have a material that we seek to replace with another cheaper, equally perform
 * Given a target material, say Copper, what is the material (unary, binary and ternary respectively) whose VEC most closely resembles that of Copper? Performing such an analysis could be useful for finding replacements for <a href = "https://en.wikipedia.org/wiki/Copper_interconnects"> Copper interconnects</a> in microprocessors.
 * Given a target material, say Copper, what is the (binary and ternary) nitride material whose average VEC most closely resembles that of Copper?  Performing such an analysis could be useful for finding suitable diffusion barrier materials for Copper interconnects.
 
+<a name="gather"></a>  
+## Step 1. Gather Data  
+The first step in the process is to create a dataset that is suitable to answer the questions posed above. What kind of datashould we gather? At minimum we need the VEC of every material we plan to investigate. How many materials should we investigate? This is really a subjective choice, but one can choose to investigate as many materials as one has access to. The <a href = "https://www.materialsproject.org/about">Materials Project</a> provides query-based access to material properties of over 100 thousand inorganic materials.  
+
+For this blog post, I decided to query the Materials Project using the API functionality provided by the <a href= "http://pymatgen.org">pymatgen</a> library. After filtering for materials that were radioactive, inert or highly reactive, I first gathered material identifiers of over 50 thousand inorganic materials.  
+
+The <a href="https://hackingmaterials.github.io/matminer/">matminer</a> package is a library that can be used to perform data mining of materials. It provides routines to query various materials databases, featurize existing databases and works natively within the Pandas DataFrame format. This makes the package extremely useful for this case study.  
+
+I used the <a href = "https://hackingmaterials.github.io/matminer/matminer.featurizers.html#matminer.featurizers.composition.ValenceOrbital">ValenceOrbital Featurizer </a> in matminer to obtain the VEC of each material. For the questions above, I decided to limit myself to the 's', 'p' and 'd' orbital VEC since this covers most elements of practical use.  
+
+<a name="assess"></a>
+## Step 2. Assess data
+
+Having created a dataset for analysis, one can go about analyzing the data to get an intuitive feel for the dataset. This includes knowing the range of each variable in the dataset, the distribution of values and outliers if any. The figure below shows a distribution of s, p and d electrons for the data set.
+
+
+
 <a name="conclusions"></a>  
 ## Conclusions  
 That brings us to the end of this post. The information and analysis provided above should serve as a blueprint for further investigation into similar topics. The choice of VEC as input variables (features) for unsupervised learning and analyzing similarity was motivated by the need to keep the post accessible to a broad audience. A number of such features can be created from the materials data based on material composition and structure. A larger list of featurizers cn be accessed at the relevant <a href = "https://hackingmaterials.github.io/matminer/featurizer_summary.html">matminer table of featurizers</a>. 
