@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A predictive model of customer churn in the Spark big-data framework
+title: A Predictive Model of Customer Churn in the Spark Big-Data Framework
 ---
 
 ![Sparkify](/images/Sparkify.png)
