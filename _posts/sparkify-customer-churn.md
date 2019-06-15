@@ -64,6 +64,14 @@ The column relevant to determining whether a user churns or not is the 'page' co
 ![Page](/images/page.png)  
 <i>'page' column in the Sparkify dataset and all the unique values it can take.</a></i>
 
+Exploring the 'page' and 'userId' columns a little further, I found that a total of 52 members cancelled service or churned (per our definition above). The churn/non-churn ratio is therefore quite low. Some elementary data-munging in Pandas (and/or Spark) allows us to convert this information into a separate column named 'churn' in the dataset. Essentially, it involves identifying every user associated with a cancellation event and marking all rows corresponding to this user in the 'churn' column to be equal to 1. For all other users the 'churn' column for all rows is equal to 0.  
+
+Having obtained this information one can start exploring which columns (or columns derived from these columns) show marked differences in values for users that churn versus those that don't. Columns that show large differences in churn behavior are good candidates for inclusion as features in the machine learning task that follows.  
+
+The first column explored was 'gender'. The figure below indicates that almost 8% more men churned as compared to women. Without hypothesis testing it is infeasible to conclude if this difference is statistically significant. But since the different <i>seems</i> to be important, we could consider it's inclusion as a feature of interest.
+
+![Gender](/images/gender.png)
+
 <a name="feng"></a>
 ## Feature Engineering  
 
