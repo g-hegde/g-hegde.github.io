@@ -70,7 +70,7 @@ Having obtained this information one can start exploring which columns (or colum
 
 The first column explored was 'gender'. The figure below indicates that almost 8% more men churned as compared to women. Without hypothesis testing it is infeasible to conclude if this difference is statistically significant. But since the different <i>seems</i> to be important, we could consider it's inclusion as a feature of interest.
 
-![Gender](/images/gender.png)
+![Gender](/images/gender_churn.png)
 
 <a name="feng"></a>
 ## Feature Engineering  
