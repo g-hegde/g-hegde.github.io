@@ -82,6 +82,11 @@ Similarly, 'length' shows insignificant difference between the two populations.
 ![length](/images/length_churn.png)
 
 
+'level' contains information regarding the type of account. This is potentially a promising 'column'. Once can conceive that the usage patterns of users with free accounts may be different than users with paid accounts. Indeed, the figure below shows <i>some</i> difference between the two populations. Similar to 'gender' ~8% more of free account users churn as compared to paid account users. This is somewhat counterintuitive (and potentially worrisome from a product perspective), since one would not expect free-account users to cancel.
+
+![level](/images/level_churn.png)
+
+'location' is one of the most interesting columns in the dataset. The figure below shows location versus churn information for the first few locations, arranged alphabetically. Certain locations show 100% churn, while some show 0%. This behavior is counter-intuitive as well. One would not expect 100% churn in any locations <i>a priori </i>
 
 
 
