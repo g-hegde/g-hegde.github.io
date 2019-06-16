@@ -86,9 +86,13 @@ Similarly, 'length' shows insignificant difference between the two populations.
 
 ![level](/images/level_churn.png)
 
-'location' is one of the most interesting columns in the dataset. The figure below shows location versus churn information for the first few locations, arranged alphabetically. Certain locations show 100% churn, while some show 0%. This behavior is counter-intuitive as well. One would not expect 100% churn in any locations <i>a priori </i>
+'location' is one of the most interesting columns in the dataset. The figure below shows location versus churn information for the first few locations, arranged alphabetically. Certain locations show 100% churn, while some show 0%. This behavior is counter-intuitive as one would not expect 100% churn in any locations <i>a priori </i>. One does not expect usage patterns to be so consistent across samples of populations in particular geographic areas since one expects churn to be highly dependent on individual customers and their actions.
 
+![location](/images/location_churn.png)
 
+'location' thus seems to be a feature interesting enough to be included in the feature set for modeling. There are a number of ways to approach the inclusion of 'location'. A standard way would be to one-hot encode all 114 locations, but this would unnecessarily increase dimensionality of the dataset without necessarily providing greater insight. Another approach is to bin location-dependent churn into buckets where churn is low, medium and high. This reduces 114 potential variables to 3. The problem with the former approach is that it does not generalize beyond the locations provided and the problem with the second-approach (and to some extent, the first) is that both directly include information about churn. We can flag this for potential data-leakage and continue with our analysis. If inclusion of this variable leads to unexpectedly high performance, we can take this to be an indication of data-leakage.
+
+Among other columns, only 'registration', 'ts' and 'page' columns contain information that is relevant to modeling since they reveal usage patterns. These columns cannot be used directly, however and their inclusion in the feature set is discussed in the next section on feature engineering.
 
 <a name="feng"></a>
 ## Feature Engineering  
