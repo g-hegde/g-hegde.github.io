@@ -96,7 +96,7 @@ Among other columns, only 'registration', 'ts' and 'page' columns contain inform
 
 <a name="feng"></a>
 ## Feature Engineering  
-From the columns selected for inclusion in the feature set, 'gender' and 'level' are fairly straightforward to encode into features on the basis of one-hot encoding (indexing in Spark). To convert 'registration' and 'ts' columns into intuitive features, these columns are first converted from Unix Timestamp to Datetime objects. Subsequently, the dataset is grouped by userId and the timestamp ('ts') corresponding to the most recent user action is converted to a Datetime object. The maximum time spent by a user on the platform is then computed as the difference in time between the last action and the registration. This difference is stored as 'timeSpentMax' column and it's distribution for churned versus non-churned users is shown below.  
+All feature engineering is performed with PySpark. From the columns selected for inclusion in the feature set, 'gender' and 'level' are fairly straightforward to encode into features on the basis of one-hot encoding (indexing in Spark). To convert 'registration' and 'ts' columns into intuitive features, these columns are first converted from Unix Timestamp to Datetime objects. Subsequently, the dataset is grouped by userId and the timestamp ('ts') corresponding to the most recent user action is converted to a Datetime object. The maximum time spent by a user on the platform is then computed as the difference in time between the last action and the registration. This difference is stored as 'timeSpentMax' column and it's distribution for churned versus non-churned users is shown below.  
 
 ![timespentmax](/images/timespent_churn.png)  
 
@@ -106,10 +106,44 @@ Next, a 'user_engagement' column is engineered by grouping the dataset by 'userI
 
 ![user_engagement](/images/user_engage_churn.png)  
 
-'location' information is binned into 'high', 'medium' and 'low' indicating the proportion of users that churn from the location that the user belongs to. This variable is then indexed in Spark for inclusion in the feature dataset.
+'location' information is binned into 'high', 'medium' and 'low' indicating the proportion of users that churn from the location that the user belongs to. This variable is then indexed in Spark as a column called 'location_churn' for inclusion in the feature dataset.  
+
+Finally, a column called 'time_engage_prod' is engineered by multiplying the user_engagement column with the 'timeSpentmax' column. The intuition here is that while the individual columns may reveal significant differences in churn behavior, the product should further separate out these distributions. Intuitively, users that are both engaged more and have spent a lot of time on the platform should be far less likely to churn than users that spend very little time on the platform and engage less. Similarly, users that engage less and have spent more time on the platform should be more likely to churn than users that engage more and have spent less time on the platform. The distribution of this column does reveal sharper differences in the two populations as shown below.
+
+![time_engage_prod](/images/eng_time_prod_churn.png)  
+
 
 <a name="model"></a>  
 ## Model Implementation and optimization  
+The columns 'gender', 'level', 'location_churn', 'timeSpentMax', 'user_engagement' and 'time_engage_prod' are included in the machine learning Pipeline as features, while 'churn' is used as the output/label variable. The full dataset is randomly split into 'train' and 'test' subsets for model fitting and evaluation.  
+
+Since the label takes two distinct values - 1 for churn and 0 for non-churn, the problem is cast as a classification problem. Initially 3 classification models are explored  - Logistic Regression (LR), Random Forest-based Classification (RFC) and Gradient-Boosted Classification (GBC). The native implementation of each of these 3 algorithms in Spark is used to evaluate accuracy, F1-score and time taken to fit and evaluate the algorithms.
+
+RFC provides the best tradeoff-between execution time and accuracy. The default RFC provides an accuracy and F1-score of ~97%, which is quite impressive for a model with just 6 features.  
+
+The RFC is further optimized by creating a parameter grid with 3 parameters - 'minInfoGain', 'maxDepth' and 'numTrees'. As of this first attempt, the range-sweep for each of these parameters was limited to two values. Simple 3-fold cross validation (CV) was then performed using this parameter grid. CV provided a marginal improvement (~0.5%) in the F1-score.
+
+The best performing algorithm - GBC - gave an accuracy of nearly 99.2%. Obtaining such high accuracy from a fairly complex dataset recalls the aforementioned suspicion of data-leakage. When 'location_churn' is excluded from the feature set and the same modeling proceedure is repeated, one sees a significant reduction in the performance of LR. RFC and GBC, however still show impressive performances of ~93% and ~99% respectively.
+
+The variance in the data is almost entirely (~97% of 93%) explained by 'timeSpentMax','user_engagement' and 'time_engage_prod' features. In spite of being a fairly simple model with only 5 variables, the model has an F1-score of nearly 93%. In terms of interpretability, the main three features indicate that a user's churn behaviour can almost entirely be described by the net time spent on the platform and the total number of interactions had on the platform. 
+
+Since hyperparameter tuning performed above on the extended feature set (with location_churn as a feature) provided marginal improvement in the performance of the Random Forest Classifier, I am choosing to not repeat the process for the reduced feature set. The default parameters of the Random Forest classifier - max information gain of 0.0, maximum tree depth of 5 and use of 20 trees in the forest are retained as the final parameters of the model.  
 
 <a name="conclusions"></a>  
 ## Conclusions  
+
+Sparkify user churn behavior was shown to be strongly dependent on the net time spent on the platform and the number of interactions had by the user in that time. A F1-score metric of close to 93% was attained by the Random Forest Classifier with default parameters on test data. Parameter tuning (limited, due to execution time constraints) improved performance, but insignificantly.
+
+The markers of user behavior and their interaction with the product are fairly intuitive in hindsight, but it is helpful that the modeling seems to confirm such an insight. The feature set that leaked churn data into features used for machine learning was discarded in favor of the feature set with just 5 features - gender, payment level, time spent on the platform, user engagement and the product of engagement and time spent.  
+
+While I deliberately selected Pandas for EDA (and provided what I thought was a reasonable justification for it's use in this case), the use of Pandas and Pyspark make the overall 'user' experience for a person browsing the project a little clunky. This could definitely be improved.  
+
+Another area of improvement is hyperparameter training. Model optimization showed marginal improvement and that was probably because only a few parameters were chosen to optimize. In addition, only a small range of the possible sweep in parameters was explored. Time permitting, this is definitely an area of improvement.  
+
+The area I feel needs the most improvement though, is the modeling approach. Using a vanilla classifier in this project seems reasonable since results justify them. What would be really interesting would be attempting models of user action. Based on the history of actions a specific user has taken, what is the probability that a user might take X, Y or Z action next? The methodsused in this write-up don't really apply and a Bayesian /Probabilistic Graphical Model based analysis is needed for such problems. This is beyond the scope of the present project, however.  
+
+At the attained level of performance, it seems un-necessary to involve more complicated learning algorithms. Even a simple Random Forest classifier seems to provide reasonable performance metrics. A more thorough analysis of learning algorithm suitability would involve an exploration of the trade-offs in play. For instance, is it worth it to use a Gradient boosted classifier with 2-3% improved accuracy at the cost of nearly double training time and prediction time? What is the net-revenue add from this improved performance? These are questions of business relevance that can have an impact on model decisions. If a significant improvement in revenue results from the added 3-5% improvement in performance from Gradient boosting and the time for prediction can be cut down significantly (presumably when truly distributed), then gradient boosting is clearly the better choice.  
+
+The insight regarding location and its relevance to predicting churn must also be highlighted - while I eventually discarded this feature, the feature gave some revealing insights - some locations experienced 100% churn and others experienced zero. I would not have expected such a large number of locations to show extremes. Perhaps this has to do with the fact that the dataset is synthetic, but it would be interesting to know if such an extreme distribution exists in reality. Such information could be of potential use for a customer database that is geographically confined - for instance if the list of locations does not expand beyond what is already present, such information can be used fruitfully to incentivize users in high-churn locations. Alternately, a cost-benefit analysis might conclude that particular locations are not worth incentivizing due to low overall revenue.  
+
+On a personal level, my familiarity and comfort with Pandas, coupled with its ease of use and execution speed for small datasets made my learning curve for PySpark fairly steep. The power of Spark would probably show up in larger datasets and spinning-up a Spark cluster to see this power in action is something I hope to do soon.  
