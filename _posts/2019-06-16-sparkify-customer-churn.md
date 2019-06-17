@@ -68,7 +68,8 @@ Exploring the 'page' and 'userId' columns a little further, I found that a total
 
 Having obtained this information one can start exploring which columns (or columns derived from these columns) show marked differences in values for users that churn versus those that don't. Columns that show large differences in churn behavior are good candidates for inclusion as features in the machine learning task that follows.  
 
-Columns related to 'firstname' or 'artist' should have no predictive power and are not explored further. 'auth' has cancelation information, but not as detailed as 'page'. 'method' (probably) has information related to system actions - 'PUT' when information is added to the database, and 'GET' when information is accessed. This field showed insignificant difference in the distribution for churned vesus non-churned users. Similarly 
+Columns related to 'firstname' or 'artist' should have no predictive power and are not explored further. 'auth' has cancelation information, but not as detailed as 'page'. 'method' (probably) has information related to system actions - 'PUT' when information is added to the database, and 'GET' when information is accessed. This field showed insignificant difference in the distribution for churned vesus non-churned users.  
+
 The first column that seems <i>a priori</i> should show some difference between the two populations is 'gender'. The figure below indicates that almost 8% more men churned as compared to women. Without hypothesis testing it is infeasible to conclude if this difference is statistically significant. But since the different <i>seems</i> to be important, we could consider it's inclusion as a feature of interest.
 
 ![Gender](/images/gender_churn.png)
