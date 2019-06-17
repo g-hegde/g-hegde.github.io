@@ -57,7 +57,7 @@ Churn is defined at a user level in this dataset as the subset of users for whic
 ## Data Exploration and Visualization  
 A birds-eye-view exploration of the data set reveals that there are 226 users in total. The datasets are made of the following columns  
 ![Schema](/images/schema.PNG)  
-<i>Columns in the Sparkify customer dataset. Dataset courtesy of Udacity.</a></i>
+<i>Columns in the Sparkify customer dataset. Dataset courtesy of Udacity.</i>
 
 The column relevant to determining whether a user churns or not is the 'page' column. The column essentially describes all actions a user takes on the platform. From the point a user registers, to the point that the user cancels service, each event is logged in the page column. A brief description of the page column and it's associated values is given in the figure below.  
 
