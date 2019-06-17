@@ -5,7 +5,7 @@ title: A Predictive Model of Customer Churn in the Spark Big-Data Framework
 
 ![Sparkify](/images/Sparkify.png)
 
-<i>Sparkify - a fictional music app. Image courtesy of Udacity.</a></i>
+<i>Sparkify - a fictional music app. Image courtesy of Udacity.</i>
 
 # Table of Contents  
 1. [Introduction](#intro)  
