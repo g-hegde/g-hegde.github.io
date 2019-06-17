@@ -126,7 +126,7 @@ RFC provides the best tradeoff-between execution time and accuracy. The default 
 
 The RFC is further optimized by creating a parameter grid with 3 parameters - 'minInfoGain', 'maxDepth' and 'numTrees'. As of this first attempt, the range-sweep for each of these parameters was limited to two values. Simple 3-fold cross validation (CV) was then performed using this parameter grid. CV provided a marginal improvement (~0.5%) in the F1-score.
 
-The best performing algorithm - GBC - gave an accuracy of nearly 99.2%. Obtaining such high accuracy from a fairly complex dataset recalls the aforementioned suspicion of data-leakage. When 'location_churn' is excluded from the feature set and the same modeling proceedure is repeated, one sees a significant reduction in the performance of LR. RFC and GBC, however still show impressive performances of ~93% and ~99% respectively.
+The best performing algorithm - GBC - gave an accuracy of nearly 99.2%. Obtaining such high accuracy from a fairly complex dataset recalls the aforementioned suspicion of data-leakage. When 'location_churn' is excluded from the feature set and the same modeling proceedure is repeated, the F1-score of LR reduces to nearly 80%. RFC and GBC, however still show impressive performances of ~93% and ~99% respectively.
 
 The variance in the data is almost entirely (~97% of 93%) explained by 'timeSpentMax','user_engagement' and 'time_engage_prod' features. In spite of being a fairly simple model with only 5 variables, the model has an F1-score of nearly 93%. In terms of interpretability, the main three features indicate that a user's churn behaviour can almost entirely be described by the net time spent on the platform and the total number of interactions had on the platform. 
 
