@@ -90,11 +90,9 @@ We have a material that we seek to replace with another cheaper, equally perform
 
 <a name="gather"></a>  
 ## Step 1. Gather Data  
-The first step in the process is to create a dataset that is suitable to answer the questions posed above. What kind of datashould we gather? At minimum we need the VEC of every material we plan to investigate. How many materials should we investigate? This is really a subjective choice, but one can choose to investigate as many materials as one has access to. The <a href = "https://www.materialsproject.org/about">Materials Project</a> provides query-based access to material properties of over 100 thousand inorganic materials.  
+The first step in the process is to create a dataset that is suitable to answer the questions posed above. What kind of data should we gather? At minimum we need the VEC of every material we plan to investigate. How many materials should we investigate? This is really a subjective choice, but one can choose to investigate as many materials as one has access to. The <a href = "https://www.materialsproject.org/about">Materials Project</a> provides query-based access to material properties of over 100 thousand inorganic materials.  
 
-For this blog post, I decided to query the Materials Project using the API functionality provided by the <a href= "http://pymatgen.org">pymatgen</a> library. After filtering for materials that were radioactive, inert or highly reactive, I first gathered material identifiers of over 50 thousand inorganic materials.  
-
-The <a href="https://hackingmaterials.github.io/matminer/">matminer</a> package is a library that can be used to perform data mining of materials. It provides routines to query various materials databases, featurize existing databases and works natively within the Pandas DataFrame format. This makes the package extremely useful for this case study.  
+For this blog post, I decided to query the Materials Project using the API functionality provided by the <a href= "http://pymatgen.org">pymatgen</a> library.  The <a href="https://hackingmaterials.github.io/matminer/">matminer</a> package is a library that can be used to perform data mining of materials. It provides routines to query various materials databases, featurize existing databases and works natively within the Pandas DataFrame format. This makes the package extremely useful for this case study.  
 
 I used the <a href = "https://hackingmaterials.github.io/matminer/matminer.featurizers.html#matminer.featurizers.composition.ValenceOrbital">ValenceOrbital Featurizer </a> in matminer to obtain the VEC of each material. For the questions above, I decided to limit myself to the 's', 'p' and 'd' orbital VEC since this covers most elements of practical use.  
 
@@ -118,25 +116,22 @@ Since the questions framed above are targeted towards metals, we should have a f
 <a name="clean"></a>  
 ## Step 3. Clean and prepare data for analysis  
 
-The VEC dataset is numerical. No non-numeric values and null values were found in the dataset. The likely reason for this is that each material in the dataset has a corresponding Composition object that can be obtained from the Materials Project API. Once one has a valid Composition object, the VEC is always likely to be returned as a numeric quantity without errors from the corresponding matminer featurizer.  
-
-Since the first goal of this exercise is to perform a clustering analysis, we need to ensure that the variables representing s, p and d electrons are on the same scale. This is because clustering is typically (but not always) done on the basis of distance/similarity. The usual way to compute distance between two distinct datapoints is to compute their <a href = "https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean Distance</a>. The side effect of this is that variables that have a larger range or smaller range than others can have an outsized influence on the clustering by making distance seem disproportionately large or small.
-
-To overcome this, a procedure known as scaling is applied to the dataset. In essence, this procedure modifes each variable so that every variable has the same mean and standard deviation so that no variable dominates the distance computation.  
+The essential idea here is that datasets are often messy, unformatted and non-numeric. The aim of this step is to covert messy data into a format that is suitable for machine learning. Since the procedure is fairly involved, I refer the interested user to the <a href = "https://github.com/g-hegde/material-similarity">Jupyter notebook</a> accompanying this post.
 
 <a name="analysis"></a>
 ## Step 4. Data analysis, modeling and visualization
 
-We are now in a position to perform clustering on the dataset to find the natural grouping of materials in the dataset.
-As a recap - here is question 1 - When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into? To do this, we perform clustering on the dataset using the KMeans algorithm implemented in the machine learning package <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">scikit-learn</a>. The figure below was generated from a standard KMeans clustering analysis of the dataset for arange of cluster configurations.  
+We are now in a position to perform clustering on the dataset to find the natural grouping of materials in the dataset. The technical details of the precedure are outlined in the accompanying <a href = "https://github.com/g-hegde/material-similarity">notebook</a>. This blog post directly discusses the results of the investigation.  
+
+As a recap - here is question 1 - When materials are represented on the basis of their average Valence Electronic Configuration (VEC), what is the optimum number of clusters that they can be grouped into?  
 
 ![Elbow Plot](/images/Clustering_question1.png)  
 
-To determine the optimum number of clusters, we can use the <a href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set#The_elbow_method">Elbow Method</a>. In scikit-learn we can plot the inertia of the clustering operation (The sum of the squared distance of each point from the closest cluster) versus the number of clusters and see if an elbow exists. If it does, we can use the elbow point to determine the optimum number of clusters. If it does not we may need more anaysis.  
+To determine the optimum number of clusters, we can use the <a href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set#The_elbow_method">Elbow Method</a>. If a distinct elbow exists in the inertia plot (left above) we use this cluster number as the optimum. If it does not we need more anaysis.  
 
-It is difficult to visually determine if a distinct elbow exists in the inertia plot on the left above. It is therefore useful to plot the rate of change of inertia when the number of clusters is increased. This plot on the right above shows a distinct 'knee' (continuing with anatomical metaphors) between n=3 and n=6.  
+It is difficult to visually determine if a distinct elbow exists in the inertia plot on the left above. It is therefore useful to plot the rate of change of inertia when the number of clusters is increased. This plot on the right above shows a distinct 'knee' (continuing with anatomical metaphors) between n=4 and n=6.  
 
-This provides a tentative answer to question 1 - It appears that the dataset based on average electronic structure can be partitioned into 3-6 distinct clusters.  
+This provides a tentative answer to question 1 - It appears that the dataset based on average electronic structure can be partitioned into 4-6 distinct clusters.  
 
 We can now answer question 2 - What materials are represented by cluster centers? Alternately, what unary material/materials are closest to cluster centers?  
 Before finding out which materials are closest to the cluster centers, we first need to decide what number of clusters to use. In answering question 1, we observed that the optimum number of clusters is somewhere between 3 and 6. Picking 4 as an optimum, we can perform clustering using the same procedure as above to obtain the following tables  
@@ -151,7 +146,7 @@ Obtaining this information enables an answer to question 3 - Does the grouping m
 <a href = "https://www.materialsproject.org/materials/mp-16960/">AlPt<sub>2</sub></a> is a stable nonmagnetic metal, <a href = "https://www.materialsproject.org/materials/mp-777019/">Li<sub>8</sub>SbS<sub>6</sub></a> is a stable ferromagnetic semiconductor, <a href = "https://www.materialsproject.org/materials/mp-1183042/">ZrSiRu<sub>2</sub></a> is a stable nonmagnetic semiconductor and  <a href="https://www.materialsproject.org/materials/mp-1074458/">Mg<sub>4</sub>Si<sub>3</sub></a> is an unstable metal.  
 In case of elemental materials, Si is a semiconductor with 3 unfilled p-orbitals, K is an alkali metal with an unfilled s orbital, S is a non-metallic reactive solid with 2 unfilled p orbitals, while Cr is a transition metal with unfilled d orbitals. In terms of salient material properties, the clustering process seems to have done a reasonable job  - no material has any obvious chemical overlap.  
 
-To aid intuition, it is useful to plot this information using a scatter plot. Since we have 3 dimensions in our dataset - s, p and d - and we wish to plot a 2D plot we can first project this data on to two dimensions using a technique called Principle Components Analysis (PCA). PCA is a technique that enables compression of information with minimum loss of information. Using PCA and plotting out data points, we see the following.  
+To aid intuition, it is useful to plot this information using a scatter plot. Since we have 3 dimensions in our dataset - s, p and d - and we wish to plot a 2D plot we can first project this data on to 2D using a technique called Principle Components Analysis (PCA).
 
 ![Cluster Plot](/images/Clustering_question3.png)
 
